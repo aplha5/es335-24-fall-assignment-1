@@ -14,6 +14,7 @@ from tree.base import DecisionTree
 from metrics import *
 
 np.random.seed(42)
+
 # Test case 1
 # Real Input and Real Output
 
