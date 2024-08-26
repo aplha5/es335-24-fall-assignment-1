@@ -1,51 +1,45 @@
-# Import necessary libraries
-import os
 import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix, classification_report
+from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
+import os
 
-base_dir = os.path.dirname(os.path.abspath(__file__))  # This gets the path to the directory of the current script
+# Step 1: Load the data
+base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the path to the directory of the current script
 combined_dir = os.path.join(base_dir, "Combined")
 
-# Load the dataset using np.genfromtxt
-X_train = np.genfromtxt(os.path.join(combined_dir, 'X_train.txt'), delimiter=',', dtype=np.float64)
-y_train = np.genfromtxt(os.path.join(combined_dir, 'y_train.txt'), delimiter=',', dtype=np.float64)
-X_test = np.genfromtxt(os.path.join(combined_dir, 'X_test.txt'), delimiter=',', dtype=np.float64)
-y_test = np.genfromtxt(os.path.join(combined_dir, 'y_test.txt'), delimiter=',', dtype=np.float64)
+# Load data using pandas, specifying that there is no header in the files
+X_train = pd.read_csv(os.path.join(combined_dir, "X_train.txt"), sep=r"\s+", header=None).values
+y_train = pd.read_csv(os.path.join(combined_dir, "y_train.txt"), sep=r"\s+", header=None).values.ravel()  # ravel to flatten the array
+X_test = pd.read_csv(os.path.join(combined_dir, "X_test.txt"), sep=r"\s+", header=None).values
+y_test = pd.read_csv(os.path.join(combined_dir, "y_test.txt"), sep=r"\s+", header=None).values.ravel()
 
-# Combine the datasets
+
+# Combine train and test sets
 X = np.concatenate((X_train, X_test))
 y = np.concatenate((y_train, y_test))
 
-# Split the data into training and testing sets with a different seed value
+# Step 2: Split the data into training and testing sets again
 seed = 4
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, stratify=y)
-print("Training data shape: ", X_train.shape)
-print("Testing data shape: ", X_test.shape)
 
-# Reshape X_train and X_test to 2D arrays for training
-X_train = X_train.reshape(X_train.shape[0], -1)
-X_test = X_test.reshape(X_test.shape[0], -1)
-
-# Train the decision tree classifier
+# Step 3: Train the Decision Tree model
 model = DecisionTreeClassifier(random_state=seed)
 model.fit(X_train, y_train)
 
-# Predict on test data
+# Step 4: Make predictions
 y_pred = model.predict(X_test)
 
-# Calculate accuracy, precision, recall, and confusion matrix
+# Step 5: Evaluate the model
 accuracy = accuracy_score(y_test, y_pred)
-precision = precision_score(y_test, y_pred, average='macro')
-recall = recall_score(y_test, y_pred, average='macro')
+precision = precision_score(y_test, y_pred, average='weighted')  # Use 'weighted' for multi-class
+recall = recall_score(y_test, y_pred, average='weighted')        # Use 'weighted' for multi-class
 conf_matrix = confusion_matrix(y_test, y_pred)
 
-# Output the results
-print(f"Accuracy: {accuracy:.4f}")
-print(f"Precision: {precision:.4f}")
-print(f"Recall: {recall:.4f}")
+# Print the results
+print(f"Accuracy: {accuracy}")
+print(f"Precision: {precision}")
+print(f"Recall: {recall}")
 print("Confusion Matrix:")
 print(conf_matrix)
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
