@@ -116,7 +116,4 @@ print(f"Precision: {precision:.4f}")
 print(f"Recall: {recall:.4f}")
 print("Confusion Matrix:")
 print(conf_matrix)
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred, target_names=classes.keys()))
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
