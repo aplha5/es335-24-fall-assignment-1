@@ -64,16 +64,16 @@ import tsfel
 
 def extract_features_with_tsfel(data):
     features = []
-
     for sample in data:
         df = pd.DataFrame({'accx': sample[:, 0], 'accy': sample[:, 1], 'accz': sample[:, 2]})
         
         cfg = tsfel.get_features_by_domain()
-        extracted_features = tsfel.time_series_features_extractor(cfg, df)
+        extracted_features = tsfel.time_series_features_extractor(cfg, df, verbose=0)  # Disable progress bar
 
         features.append(extracted_features.values.flatten())
 
     return np.array(features)
+
 
 # Extract TSFEL features from the training, testing, and validation data
 X_train_features = extract_features_with_tsfel(X_train)

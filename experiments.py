@@ -13,7 +13,7 @@ def generate_fake_data(N, M, case='classification'):
     """Function to generate fake data for testing."""
     X = np.random.randint(0, 2, size=(N, M))  # Binary features
     if case == 'classification':
-        y = np.random.randint(0, 2, size=N)  # Binary target for classification
+        y  = np.random.randint(0, 2, size=N)  # Binary target for classification
     else:
         y = np.random.rand(N)  # Continuous target for regression
     return pd.DataFrame(X, columns=[f'Feature_{i}' for i in range(M)]), pd.Series(y)
