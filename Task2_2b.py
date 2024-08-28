@@ -87,22 +87,19 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 print("Training data shape: ", X_train.shape)
 print("Testing data shape: ", X_test.shape)
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                                                # Decision Tree Training and Evaluation
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 
 # Reshape X_train and X_test to 2D arrays for training
 X_train = X_train.reshape(X_train.shape[0], -1)
 X_test = X_test.reshape(X_test.shape[0], -1)
 
-# Import necessary libraries for plotting
+
 import matplotlib.pyplot as plt
 
-# Define the range of depths to test
 depths = range(2, 9)
 accuracies = []
 
-# Train the Decision Tree for each depth and store the accuracy
+
 for depth in depths:
     dt = DecisionTreeClassifier(max_depth=depth, random_state=seed)
     dt.fit(X_train, y_train)

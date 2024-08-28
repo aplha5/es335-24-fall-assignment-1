@@ -21,7 +21,6 @@ X = data.drop(columns=['mpg'])
 y = data['mpg']
 X = one_hot_encoding(X)
 
-# Train-test split
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -36,7 +35,6 @@ sklearn_tree = DecisionTreeRegressor(criterion="squared_error", max_depth=5, min
 sklearn_tree.fit(X_train, y_train)
 y_pred_sklearn = sklearn_tree.predict(X_test)
 
-# Evaluation
 rmse_custom = rmse(y_pred_custom, y_test)
 mae_custom = mae(y_pred_custom, y_test)
 rmse_sklearn = rmse(y_pred_sklearn, y_test)

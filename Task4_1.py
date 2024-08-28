@@ -64,16 +64,15 @@ y_test = np.array(y_test)
 X = np.concatenate((X_train,X_test))
 y = np.concatenate((y_train,y_test))
 
-# split the data into training and testing sets. Change the seed value to obtain different random splits.
+
 seed = 4
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, stratify=y)
 
 print("Training data shape: ", X_train.shape)
 print("Testing data shape: ", X_test.shape)
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                                                # Decision Tree Training and Evaluation
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+ 
 
 # Reshape X_train and X_test to 2D arrays for training
 X_train = X_train.reshape(X_train.shape[0], -1)
@@ -83,10 +82,6 @@ X_test = X_test.reshape(X_test.shape[0], -1)
 model = DecisionTreeClassifier(random_state=seed)
 model.fit(X_train, y_train)
 
-# Predict on test data
-# Load and preprocess your new data from the "activities" folder
-
-# Load your new data
 X_new = []
 y_new = []
 dataset_dir = os.path.join(base_dir, "ACTIVITIES")
@@ -100,13 +95,10 @@ for folder in folders:
 
 X_new = np.array(X_new)
 y_new = np.array(y_new)
-# Reshape new data for prediction
 X_new = X_new.reshape(X_new.shape[0], -1)
 
 # Make predictions
 y_pred_new = model.predict(X_new)
-
-# If true labels are available, calculate and print evaluation metrics
 
 accuracy_new = accuracy_score(y_new, y_pred_new)
 precision_new = precision_score(y_new, y_pred_new, average='macro')

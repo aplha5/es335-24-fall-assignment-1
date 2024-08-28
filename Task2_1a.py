@@ -60,24 +60,19 @@ y_test = np.array(y_test)
                                                 # Final Dataset
 #=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-# concatenate the training and testing data
+
 X = np.concatenate((X_train,X_test))
 y = np.concatenate((y_train,y_test))
 
-# split the data into training and testing sets. Change the seed value to obtain different random splits.
 seed = 4
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, stratify=y)
+
+X_train = X_train.reshape(X_train.shape[0], -1)
+X_test = X_test.reshape(X_test.shape[0], -1)
 
 print("Training data shape: ", X_train.shape)
 print("Testing data shape: ", X_test.shape)
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                                                # Decision Tree Training and Evaluation
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-# Reshape X_train and X_test to 2D arrays for training
-X_train = X_train.reshape(X_train.shape[0], -1)
-X_test = X_test.reshape(X_test.shape[0], -1)
 
 # Train the decision tree classifier
 model = DecisionTreeClassifier(random_state=seed)
@@ -86,13 +81,12 @@ model.fit(X_train, y_train)
 # Predict on test data
 y_pred = model.predict(X_test)
 
-# Calculate accuracy, precision, recall, and confusion matrix
+
 accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred, average='macro')
 recall = recall_score(y_test, y_pred, average='macro')
 conf_matrix = confusion_matrix(y_test, y_pred)
 
-# Output the results
 print(f"Accuracy: {accuracy:.4f}")
 print(f"Precision: {precision:.4f}")
 print(f"Recall: {recall:.4f}")

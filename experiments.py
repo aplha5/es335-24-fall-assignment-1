@@ -7,7 +7,7 @@ from metrics import *
 from joblib import Parallel, delayed
 
 np.random.seed(42)
-num_average_time = 10  # Reduce the number of times to run each experiment
+num_average_time = 10  
 
 def generate_fake_data(N, M, case='classification'):
     """Function to generate fake data for testing."""

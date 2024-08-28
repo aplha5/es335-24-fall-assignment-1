@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
 import os
 
-# Step 1: Load the data
+# Load the data
 base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the path to the directory of the current script
 combined_dir = os.path.join(base_dir, "Combined")
 
@@ -20,18 +20,17 @@ y_test = pd.read_csv(os.path.join(combined_dir, "y_test.txt"), sep=r"\s+", heade
 X = np.concatenate((X_train, X_test))
 y = np.concatenate((y_train, y_test))
 
-# Step 2: Split the data into training and testing sets again
+
 seed = 4
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, stratify=y)
 
-# Import necessary libraries for plotting
+
 import matplotlib.pyplot as plt
 
-# Define the range of depths to test
 depths = range(2, 9)
 accuracies = []
 
-# Train the Decision Tree for each depth and store the accuracy
+
 for depth in depths:
     dt = DecisionTreeClassifier(max_depth=depth, random_state=seed)
     dt.fit(X_train, y_train)

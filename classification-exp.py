@@ -72,12 +72,8 @@ for depth in depths:
         y_pred_fold = tree.predict(X_test_fold)
         fold_score = accuracy(y_pred_fold, y_test_fold)
         fold_scores.append(fold_score)
-
-    # Average score for this depth
     avg_score = np.mean(fold_scores)
     print(f"Depth {depth}: Avg Accuracy {avg_score}")
-
-    # Check if this depth has the best score
     if avg_score > best_score:
         best_score = avg_score
         best_depth = depth

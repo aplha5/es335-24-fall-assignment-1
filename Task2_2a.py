@@ -65,25 +65,22 @@ y_test = np.array(y_test)
 X = np.concatenate((X_train,X_test))
 y = np.concatenate((y_train,y_test))
 
-# split the data into training and testing sets. Change the seed value to obtain different random splits.
+
 seed = 4
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, stratify=y)
 
 print("Training data shape: ", X_train.shape)
 print("Testing data shape: ", X_test.shape)
 
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                                                # Decision Tree Training and Evaluation
-#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 
 # Reshape X_train and X_test to 2D arrays for training
 X_train = X_train.reshape(X_train.shape[0], -1)
 X_test = X_test.reshape(X_test.shape[0], -1)
 
-# Import necessary libraries for plotting
+
 import matplotlib.pyplot as plt
 
-# Define the range of depths to test
 depths = range(2, 9)
 accuracies = []
 

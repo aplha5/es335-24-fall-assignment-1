@@ -20,24 +20,21 @@ y_test = pd.read_csv(os.path.join(combined_dir, "y_test.txt"), sep=r"\s+", heade
 X = np.concatenate((X_train, X_test))
 y = np.concatenate((y_train, y_test))
 
-# Step 2: Split the data into training and testing sets again
+
 seed = 4
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, stratify=y)
 
-# Step 3: Train the Decision Tree model
+# Train the Decision Tree model
 model = DecisionTreeClassifier(random_state=seed)
 model.fit(X_train, y_train)
 
-# Step 4: Make predictions
 y_pred = model.predict(X_test)
 
-# Step 5: Evaluate the model
 accuracy = accuracy_score(y_test, y_pred)
-precision = precision_score(y_test, y_pred, average='weighted')  # Use 'weighted' for multi-class
-recall = recall_score(y_test, y_pred, average='weighted')        # Use 'weighted' for multi-class
+precision = precision_score(y_test, y_pred, average='weighted')  
+recall = recall_score(y_test, y_pred, average='weighted')        
 conf_matrix = confusion_matrix(y_test, y_pred)
 
-# Print the results
 print(f"Accuracy: {accuracy}")
 print(f"Precision: {precision}")
 print(f"Recall: {recall}")
